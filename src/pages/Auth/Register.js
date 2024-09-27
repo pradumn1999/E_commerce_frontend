@@ -42,7 +42,7 @@ const Register = () => {
       toast.error(error.response?.data?.message || 'Something went wrong');
     }
   };
-
+  console.log("ssrhytryrd");
 
   return (
     <Layout title="Register - Ecommer App">
