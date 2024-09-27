@@ -18,7 +18,8 @@ const Register = () => {
 
 
   const handleSubmit = async (e) => {
-    console.log(process.env.REACT_APP_BASE_URL)
+    console.log("diksha mohan");
+    console.log(process.env.REACT_APP_BASE_URL);
     e.preventDefault();
     try {
       const res = await axios.post(`${process.env.REACT_APP_BASE_URL}api/v1/auth/register`, {
@@ -40,6 +41,7 @@ const Register = () => {
       toast.error(error.response?.data?.message || 'Something went wrong');
     }
   };
+
 
   return (
     <Layout title="Register - Ecommer App">
