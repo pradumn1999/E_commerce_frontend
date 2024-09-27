@@ -23,7 +23,7 @@ const Register = () => {
     console.log("weds praduman mondal");
     e.preventDefault();
     try {
-      const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/auth/register`, {
+      const res = await axios.post(`https://e-commerce-backend-nu-eight.vercel.app/api/v1/auth/register`, {
         name,
         email,
         password,
