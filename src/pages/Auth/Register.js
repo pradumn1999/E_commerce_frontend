@@ -4,8 +4,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
-// import 
-
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -14,16 +12,14 @@ const Register = () => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [answer, setAnswer] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-
   const handleSubmit = async (e) => {
-    console.log("diksha mohan");
-    console.log(process.env.REACT_APP_BASE_URL);
-    console.log("weds praduman mondal");
     e.preventDefault();
+    setLoading(true);
     try {
-      const res = await axios.post(`https://e-commerce-backend-nu-eight.vercel.app/api/v1/auth/register`, {
+      const res = await axios.post('https://e-commerce-backend-nu-eight.vercel.app/api/v1/auth/register', {
         name,
         email,
         password,
@@ -38,14 +34,15 @@ const Register = () => {
         toast.error(res.data.message);
       }
     } catch (error) {
-      console.log('Error response:', error.response);
+      console.log('Error response:', error.response || error.message);
       toast.error(error.response?.data?.message || 'Something went wrong');
+    } finally {
+      setLoading(false);
     }
   };
-  console.log("ssrhytryrd");
 
   return (
-    <Layout title="Register - Ecommer App">
+    <Layout title="Register - Ecommerce App">
       <div className="form-container" style={{ minHeight: "90vh" }}>
         <form onSubmit={handleSubmit}>
           <h4 className="title">REGISTER FORM</h4>
@@ -55,7 +52,6 @@ const Register = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="form-control"
-              id="exampleInputEmail1"
               placeholder="Enter Your Name"
               required
               autoFocus
@@ -67,8 +63,7 @@ const Register = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="form-control"
-              id="exampleInputEmail1"
-              placeholder="Enter Your Email "
+              placeholder="Enter Your Email"
               required
             />
           </div>
@@ -78,7 +73,6 @@ const Register = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="form-control"
-              id="exampleInputPassword1"
               placeholder="Enter Your Password"
               required
             />
@@ -89,7 +83,6 @@ const Register = () => {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               className="form-control"
-              id="exampleInputEmail1"
               placeholder="Enter Your Phone"
               required
             />
@@ -100,7 +93,6 @@ const Register = () => {
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               className="form-control"
-              id="exampleInputEmail1"
               placeholder="Enter Your Address"
               required
             />
@@ -111,13 +103,12 @@ const Register = () => {
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
               className="form-control"
-              id="exampleInputEmail1"
-              placeholder="What is Your Favorite sports"
+              placeholder="What is Your Favorite sport?"
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            REGISTER
+          <button type="submit" className="btn btn-primary" disabled={loading}>
+            {loading ? 'Registering...' : 'REGISTER'}
           </button>
         </form>
       </div>
